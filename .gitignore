@@ -50,3 +50,6 @@ app.*.map.json
 /lib/src/presentation/features/app_resources/locale_keys.g.dart
 /lib/src/data/network/api/*.g.dart
 /lib/src/data/network/entity/*.g.dart
+
+#fvm
+.fvm/flutter_sdk

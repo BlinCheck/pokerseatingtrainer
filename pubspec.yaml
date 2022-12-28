@@ -1,7 +1,7 @@
 name: pokerseatingtrainer
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 0.0.1
 
@@ -11,12 +11,41 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   cupertino_icons: ^1.0.2
+  dart_code_metrics: ^5.1.0
+  flutter_bloc: ^7.1.0
+  injectable: ^1.5.0
+  get_it: ^7.2.0
+  beamer: ^0.14.1
+  provider: ^5.0.0
+  shared_preferences: ^2.0.11
+  equatable: ^2.0.3
+  logging: ^1.0.1
+  easy_localization: ^3.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   flutter_lints: ^2.0.0
+  build_runner: ^2.1.1
+  injectable_generator: ^1.4.1
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/translations/
+    - assets/fonts/
+    - assets/images/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
