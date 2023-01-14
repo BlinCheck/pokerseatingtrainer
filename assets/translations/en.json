@@ -2,5 +2,6 @@
   "appName": "Poker Seating Trainer",
   "error": "Error",
   "somethingWrong": "Something went wrong. Please try again later.",
-  "ok": "OK"
+  "ok": "OK",
+  "fish": "Fish"
 }
