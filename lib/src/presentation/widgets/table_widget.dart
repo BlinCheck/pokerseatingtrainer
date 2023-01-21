@@ -1,9 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pokerseatingtrainer/src/domain/entity/seat_type.dart';
-import 'package:pokerseatingtrainer/src/presentation/features/app_resources/locale_keys.g.dart';
 import 'package:pokerseatingtrainer/src/presentation/utils/buttons_coordinates.dart';
-import 'package:pokerseatingtrainer/src/utils/table_utils.dart';
 
 const tableWidth = 300.0;
 
@@ -101,22 +98,11 @@ class TableWidget extends StatelessWidget {
     SeatType seatType,
     int currentIndex,
   ) {
-    return seatType == SeatType.fish
-        ? Text(
+    return seatType == SeatType.free
+        ? const Text('')
+        : Text(
             'R',
             style: Theme.of(context).textTheme.headline1,
-          )
-        : seatType == SeatType.taken
-            ? Text(
-                _getTakenSeatText(currentIndex),
-                style: Theme.of(context).textTheme.headline2,
-              )
-            : const Text('');
-  }
-
-  String _getTakenSeatText(int currentIndex) {
-    final distance = getDistanceToFish(currentIndex, fishIndex!, seatAmount);
-
-    return '${LocaleKeys.fish.tr()}+$distance';
+          );
   }
 }
