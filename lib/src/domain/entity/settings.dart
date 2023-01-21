@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 @immutable
 class Settings extends Equatable {
   const Settings({
-    this.seatAmount = 6,
+    this.seatAmount = 9,
     this.tablesInRow = 4,
     this.rowsAmount = 3,
   });

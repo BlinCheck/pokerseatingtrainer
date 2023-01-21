@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pokerseatingtrainer/src/domain/entity/play_state.dart';
 import 'package:pokerseatingtrainer/src/presentation/base/cubit_state.dart';
+import 'package:pokerseatingtrainer/src/presentation/dialogs/info_dialog.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/app_resources/locale_keys.g.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/app_theme/app_theme_source.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/game/game_cubit.dart';
@@ -19,6 +20,35 @@ class GameScreen extends StatefulWidget {
 }
 
 class GameScreenState extends CubitState<GameScreen, GameState, GameCubit> {
+  @override
+  void onStateChanged(BuildContext context, GameState state) {
+    if (state.clickedSeat != null) {
+      _showEndOfRoundDialog(state.clickedSeat!);
+    }
+  }
+
+  Future<void> _showEndOfRoundDialog(int clickedSeat) async {
+    if (clickedSeat != missedSeatIndex) {
+      showInfoDialog(
+        context: context,
+        title: LocaleKeys.clickedSeatDialogTitle.tr(),
+        message: '${LocaleKeys.clickedSeatDialogMessage.tr()}'
+            '${LocaleKeys.fish.tr()} + $clickedSeat',
+      );
+    } else {
+      showInfoDialog(
+        context: context,
+        title: LocaleKeys.missDialogTitle.tr(),
+        message: LocaleKeys.missDialogMessage.tr(),
+      );
+    }
+
+    await Future<void>.delayed(const Duration(seconds: 1));
+
+    Navigator.of(context).pop();
+    cubit(context).unpauseGame();
+  }
+
   @override
   Widget buildWidget(BuildContext context) {
     return Scaffold(

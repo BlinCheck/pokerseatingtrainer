@@ -12,6 +12,7 @@ class GameState extends Equatable {
     this.nextAvailableIndex,
     this.activeTableIndex,
     this.seatDeactivationTime,
+    this.clickedSeat,
   });
 
   final Settings settings;
@@ -20,6 +21,7 @@ class GameState extends Equatable {
   final int? nextAvailableIndex;
   final int? activeTableIndex;
   final int? seatDeactivationTime;
+  final int? clickedSeat;
 
   GameState copyWith({
     Settings? settings,
@@ -28,6 +30,7 @@ class GameState extends Equatable {
     int? nextAvailableIndex,
     int? activeTableIndex,
     int? seatDeactivationTime,
+    int? clickedSeat,
   }) {
     return GameState(
       settings: settings ?? this.settings,
@@ -36,6 +39,7 @@ class GameState extends Equatable {
       nextAvailableIndex: nextAvailableIndex ?? this.nextAvailableIndex,
       activeTableIndex: activeTableIndex ?? this.activeTableIndex,
       seatDeactivationTime: seatDeactivationTime ?? this.seatDeactivationTime,
+      clickedSeat: clickedSeat,
     );
   }
 
@@ -51,6 +55,7 @@ class GameState extends Equatable {
       fishIndex: clearFishIndex ? null : fishIndex,
       nextAvailableIndex: clearNextAvailableIndex ? null : nextAvailableIndex,
       activeTableIndex: clearActiveTableIndex ? null : activeTableIndex,
+      clickedSeat: null,
     );
   }
 
@@ -62,5 +67,6 @@ class GameState extends Equatable {
         nextAvailableIndex,
         activeTableIndex,
         seatDeactivationTime,
+        clickedSeat,
       ];
 }
