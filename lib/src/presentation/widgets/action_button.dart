@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/app_theme/app_theme_source.dart';
+import 'package:pokerseatingtrainer/src/presentation/widgets/transparent_inkwell.dart';
 
 class ActionButton extends StatelessWidget {
   const ActionButton({
@@ -28,11 +29,8 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return TransparentInkWell(
       onTap: !disabled ? onPressed : null,
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      hoverColor: Colors.transparent,
       child: Container(
         height: 60,
         width: double.infinity,

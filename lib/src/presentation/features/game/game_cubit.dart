@@ -47,6 +47,14 @@ class GameCubit extends Cubit<GameState> {
     _startRound();
   }
 
+  void onSeatAmountChanged(int seatAmount) {
+    emit(
+      state.copyWith(
+        settings: state.settings.copyWith(seatAmount: seatAmount),
+      ),
+    );
+  }
+
   Future<void> _startRound() async {
     emit(state.copyWith(playState: PlayState.waitingFish));
 
