@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:pokerseatingtrainer/src/domain/entity/seat_type.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/app_resources/locale_keys.g.dart';
 import 'package:pokerseatingtrainer/src/presentation/utils/buttons_coordinates.dart';
+import 'package:pokerseatingtrainer/src/utils/table_utils.dart';
+
+const tableWidth = 300.0;
 
 class TableWidget extends StatelessWidget {
   const TableWidget({
@@ -26,8 +29,8 @@ class TableWidget extends StatelessWidget {
           image: seatAmount == 6
               ? const AssetImage('assets/images/table_6.jpg')
               : const AssetImage('assets/images/table_9.jpg'),
-          width: 400,
-          height: 280,
+          width: tableWidth,
+          height: 250,
         ),
         ..._buildButtons(context),
       ],
@@ -46,7 +49,7 @@ class TableWidget extends StatelessWidget {
         left: coordinatesList[index].x as double,
         child: InkWell(
           onTap: () {
-            if (seatCallback != null) {
+            if (seatCallback != null && _getSeatType(index) == SeatType.free) {
               seatCallback!(index);
             }
           },
@@ -112,11 +115,7 @@ class TableWidget extends StatelessWidget {
   }
 
   String _getTakenSeatText(int currentIndex) {
-    var distance = currentIndex - fishIndex!;
-
-    if (distance < 0) {
-      distance = seatAmount + distance;
-    }
+    final distance = getDistanceToFish(currentIndex, fishIndex!, seatAmount);
 
     return '${LocaleKeys.fish.tr()}+$distance';
   }
