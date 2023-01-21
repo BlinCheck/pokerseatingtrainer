@@ -8,6 +8,7 @@ import 'package:pokerseatingtrainer/src/presentation/features/app_theme/app_them
 import 'package:pokerseatingtrainer/src/presentation/features/game/game_cubit.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/game/game_state.dart';
 import 'package:pokerseatingtrainer/src/presentation/widgets/action_button.dart';
+import 'package:pokerseatingtrainer/src/presentation/widgets/seat_amount_picker.dart';
 import 'package:pokerseatingtrainer/src/presentation/widgets/table_widget.dart';
 
 class GameScreen extends StatefulWidget {
@@ -113,18 +114,37 @@ class GameScreenState extends CubitState<GameScreen, GameState, GameCubit> {
 
   Widget _buildInterface() {
     return observeState(builder: (context, state) {
-      return Center(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          width: 350,
-          child: ActionButton(
-            onPressed: cubit(context).onPlayButtonPressed,
-            text: state.playState == PlayState.stopped
-                ? LocaleKeys.play.tr()
-                : LocaleKeys.stop.tr(),
-          ),
-        ),
-      );
+      return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildSeatAmountPicker(state),
+            _buildPlayButton(state),
+          ]);
     });
+  }
+
+  Widget _buildSeatAmountPicker(GameState state) {
+    return SizedBox(
+      width: 400,
+      child: SeatAmountPicker(
+        seatAmount: state.settings.seatAmount,
+        callback: cubit(context).onSeatAmountChanged,
+        enabled: state.playState == PlayState.stopped,
+      ),
+    );
+  }
+
+  Widget _buildPlayButton(GameState state) {
+    return Container(
+      width: 400,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ActionButton(
+        onPressed: cubit(context).onPlayButtonPressed,
+        text: state.playState == PlayState.stopped
+            ? LocaleKeys.play.tr()
+            : LocaleKeys.stop.tr(),
+      ),
+    );
   }
 }
