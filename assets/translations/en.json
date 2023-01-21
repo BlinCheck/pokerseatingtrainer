@@ -3,5 +3,7 @@
   "error": "Error",
   "somethingWrong": "Something went wrong. Please try again later.",
   "ok": "OK",
-  "fish": "Fish"
+  "fish": "Fish",
+  "play": "Play",
+  "stop": "Stop"
 }

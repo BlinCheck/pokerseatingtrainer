@@ -4,6 +4,10 @@ import 'package:flutter/services.dart';
 
 class AppThemeSource {
   static const Color darkBlueColor = Color(0xff05314E);
+  static const Color lightBlueColor = Color(0xff38CEEE);
+  static const Color greyBlueColor = Color(0xff7192A8);
+  static const Color buttonDarkTextColor = Color(0xff032B45);
+  static const Color backgroundColor = Color(0xffEDF3F5);
 
   ThemeData get theme => ThemeData.light().copyWith(
         textTheme: _textTheme,
@@ -51,6 +55,12 @@ class AppThemeSource {
         fontFamily: 'Inter',
         color: Colors.white,
       ),
+      bodyText1: const TextStyle(
+        fontSize: 20,
+        fontFamily: 'Inter',
+        fontWeight: FontWeight.w600,
+        color: buttonDarkTextColor,
+      )
     );
   }
 }
