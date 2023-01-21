@@ -8,6 +8,8 @@ import 'package:pokerseatingtrainer/src/domain/entity/settings.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/game/game_state.dart';
 import 'package:pokerseatingtrainer/src/utils/table_utils.dart';
 
+const missedSeatIndex = -1;
+
 const _maxFishWaitTime = 15000;
 const _maxSeatDeactivationTime = 2000;
 
@@ -37,7 +39,12 @@ class GameCubit extends Cubit<GameState> {
     );
 
     _logger.info('onSeatPressed: Fish + $distance');
-    _stopGame();
+
+    _processRoundFinish(distance);
+  }
+
+  void unpauseGame() {
+    _startRound();
   }
 
   Future<void> _startRound() async {
@@ -88,20 +95,39 @@ class GameCubit extends Cubit<GameState> {
 
         _deactivateNextSeat();
       } else {
-        _stopGame();
+        _logger.info('round is finished');
+
+        _processRoundFinish(missedSeatIndex);
       }
     }
   }
 
   void _stopGame() {
-    emit(state
-        .clearFields(
-          clearFishIndex: true,
-          clearNextAvailableIndex: true,
-          clearActiveTableIndex: true,
-        )
-        .copyWith(playState: PlayState.stopped));
+    emit(
+      state
+          .clearFields(
+            clearFishIndex: true,
+            clearNextAvailableIndex: true,
+            clearActiveTableIndex: true,
+          )
+          .copyWith(playState: PlayState.stopped),
+    );
 
     _logger.info('stopped game');
+  }
+
+  void _processRoundFinish(int clickedSeat) {
+    emit(
+      state
+          .clearFields(
+            clearFishIndex: true,
+            clearNextAvailableIndex: true,
+            clearActiveTableIndex: true,
+          )
+          .copyWith(
+            clickedSeat: clickedSeat,
+            playState: PlayState.paused,
+          ),
+    );
   }
 }

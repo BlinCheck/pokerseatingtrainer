@@ -5,5 +5,9 @@
   "ok": "OK",
   "fish": "Fish",
   "play": "Play",
-  "stop": "Stop"
+  "stop": "Stop",
+  "missDialogTitle": "Oops",
+  "missDialogMessage": "All seats have been taken",
+  "clickedSeatDialogTitle": "Well done",
+  "clickedSeatDialogMessage": "You have taken seat "
 }
