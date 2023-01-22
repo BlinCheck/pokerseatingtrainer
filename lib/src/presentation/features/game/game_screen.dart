@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pokerseatingtrainer/src/domain/entity/play_state.dart';
 import 'package:pokerseatingtrainer/src/presentation/base/cubit_state.dart';
 import 'package:pokerseatingtrainer/src/presentation/dialogs/info_dialog.dart';
+import 'package:pokerseatingtrainer/src/presentation/dialogs/scores_dialog.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/app_resources/locale_keys.g.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/app_theme/app_theme_source.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/game/game_cubit.dart';
@@ -25,6 +26,10 @@ class GameScreenState extends CubitState<GameScreen, GameState, GameCubit> {
   void onStateChanged(BuildContext context, GameState state) {
     if (state.clickedSeat != null) {
       _showEndOfRoundDialog(state.clickedSeat!);
+    }
+
+    if (state.showScores == true) {
+      showScoresDialog(context: context, scores: state.scores);
     }
   }
 
@@ -119,6 +124,7 @@ class GameScreenState extends CubitState<GameScreen, GameState, GameCubit> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildSeatAmountPicker(state),
+            const SizedBox(height: 16),
             _buildPlayButton(state),
           ]);
     });

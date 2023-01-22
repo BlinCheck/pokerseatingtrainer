@@ -8,14 +8,18 @@ import 'package:pokerseatingtrainer/src/domain/entity/settings.dart';
 import 'package:pokerseatingtrainer/src/presentation/features/game/game_state.dart';
 import 'package:pokerseatingtrainer/src/utils/table_utils.dart';
 
-const missedSeatIndex = -1;
+const missedSeatIndex = 0;
 
 const _maxFishWaitTime = 15000;
 const _maxSeatDeactivationTime = 2000;
 
 @injectable
 class GameCubit extends Cubit<GameState> {
-  GameCubit() : super(const GameState(settings: Settings()));
+  GameCubit()
+      : super(GameState(
+          settings: const Settings(),
+          scores: List<int>.filled(9, 0),
+        ));
 
   late final _logger = Logger('GameCubit #${identityHashCode(this)}');
 
@@ -51,6 +55,7 @@ class GameCubit extends Cubit<GameState> {
     emit(
       state.copyWith(
         settings: state.settings.copyWith(seatAmount: seatAmount),
+        scores: List<int>.filled(seatAmount, 0),
       ),
     );
   }
@@ -118,13 +123,24 @@ class GameCubit extends Cubit<GameState> {
             clearNextAvailableIndex: true,
             clearActiveTableIndex: true,
           )
-          .copyWith(playState: PlayState.stopped),
+          .copyWith(
+            playState: PlayState.stopped,
+            showScores: true,
+          ),
     );
+
+    emit(state.copyWith(
+      scores: List<int>.filled(state.settings.seatAmount, 0),
+    ));
 
     _logger.info('stopped game');
   }
 
   void _processRoundFinish(int clickedSeat) {
+    final newScores = state.scores;
+
+    newScores[clickedSeat] = state.scores[clickedSeat] + 1;
+
     emit(
       state
           .clearFields(
@@ -135,6 +151,7 @@ class GameCubit extends Cubit<GameState> {
           .copyWith(
             clickedSeat: clickedSeat,
             playState: PlayState.paused,
+            scores: newScores,
           ),
     );
   }

@@ -9,5 +9,7 @@
   "missDialogTitle": "Oops",
   "missDialogMessage": "All seats have been taken",
   "clickedSeatDialogTitle": "Well done",
-  "clickedSeatDialogMessage": "You have taken seat "
+  "clickedSeatDialogMessage": "You have taken seat ",
+  "missed": "Missed",
+  "results": "Results"
 }

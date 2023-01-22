@@ -7,12 +7,14 @@ import 'package:pokerseatingtrainer/src/domain/entity/settings.dart';
 class GameState extends Equatable {
   const GameState({
     required this.settings,
+    required this.scores,
     this.playState = PlayState.stopped,
     this.fishIndex,
     this.nextAvailableIndex,
     this.activeTableIndex,
     this.seatDeactivationTime,
     this.clickedSeat,
+    this.showScores = false,
   });
 
   final Settings settings;
@@ -22,6 +24,9 @@ class GameState extends Equatable {
   final int? activeTableIndex;
   final int? seatDeactivationTime;
   final int? clickedSeat;
+  final List<int> scores;
+
+  final bool showScores;
 
   GameState copyWith({
     Settings? settings,
@@ -31,6 +36,8 @@ class GameState extends Equatable {
     int? activeTableIndex,
     int? seatDeactivationTime,
     int? clickedSeat,
+    List<int>? scores,
+    bool? showScores,
   }) {
     return GameState(
       settings: settings ?? this.settings,
@@ -40,6 +47,8 @@ class GameState extends Equatable {
       activeTableIndex: activeTableIndex ?? this.activeTableIndex,
       seatDeactivationTime: seatDeactivationTime ?? this.seatDeactivationTime,
       clickedSeat: clickedSeat,
+      scores: scores ?? this.scores,
+      showScores: showScores ?? false,
     );
   }
 
@@ -56,6 +65,7 @@ class GameState extends Equatable {
       nextAvailableIndex: clearNextAvailableIndex ? null : nextAvailableIndex,
       activeTableIndex: clearActiveTableIndex ? null : activeTableIndex,
       clickedSeat: null,
+      scores: scores,
     );
   }
 
@@ -68,5 +78,7 @@ class GameState extends Equatable {
         activeTableIndex,
         seatDeactivationTime,
         clickedSeat,
+        scores,
+        showScores,
       ];
 }
